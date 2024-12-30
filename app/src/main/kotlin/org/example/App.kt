@@ -7,6 +7,9 @@ import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
 import org.example.miscellaneous.Numbers.Companion.playWithNumbers
 import org.example.miscellaneous.Customer
+import org.example.miscellaneous.Numbers.Companion.playWithArrays
+import org.example.miscellaneous.Numbers.Companion.playWithStrings
+import org.example.miscellaneous.Numbers.Companion.playWithTypeCasts
 import org.example.product.ProductImpl
 
 fun main() {
@@ -19,10 +22,16 @@ fun main() {
 //    secondLesson()
 
     // Third lesson
-//    thirdLesson()
+    // thirdLesson()
 
     // Fourth lesson
-    playWithNumbers()
+    // playWithNumbers()
+    // Fifth lesson
+    // playWithStrings()
+    // Sixth lesson
+    // playWithArrays()
+    // Seventh lesson
+    playWithTypeCasts()
 }
 
 fun firstLesson() {
