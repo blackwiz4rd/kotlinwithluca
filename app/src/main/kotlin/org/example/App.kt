@@ -5,6 +5,8 @@ package org.example
 
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
+import org.example.miscellaneous.ControlFlow.Companion.playWithConditions
+import org.example.miscellaneous.ControlFlow.Companion.playWithLoops
 import org.example.miscellaneous.Numbers.Companion.playWithNumbers
 import org.example.miscellaneous.Customer
 import org.example.miscellaneous.Numbers.Companion.playWithArrays
@@ -31,7 +33,10 @@ fun main() {
     // Sixth lesson
     // playWithArrays()
     // Seventh lesson
-    playWithTypeCasts()
+    // playWithTypeCasts()
+    // Eigth lesson
+    //playWithConditions()
+    playWithLoops()
 }
 
 fun firstLesson() {
