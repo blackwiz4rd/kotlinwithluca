@@ -6,6 +6,7 @@ package org.example
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
 import org.example.miscellaneous.ControlFlow.Companion.playWithConditions
+import org.example.miscellaneous.ControlFlow.Companion.playWithExceptions
 import org.example.miscellaneous.ControlFlow.Companion.playWithLoops
 import org.example.miscellaneous.Numbers.Companion.playWithNumbers
 import org.example.miscellaneous.Customer
@@ -36,7 +37,9 @@ fun main() {
     // playWithTypeCasts()
     // Eigth lesson
     //playWithConditions()
-    playWithLoops()
+    // playWithLoops()
+    // Ninth lesson
+    playWithExceptions()
 }
 
 fun firstLesson() {
