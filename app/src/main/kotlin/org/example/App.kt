@@ -5,14 +5,8 @@ package org.example
 
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
-import org.example.miscellaneous.ControlFlow.Companion.playWithConditions
-import org.example.miscellaneous.ControlFlow.Companion.playWithExceptions
-import org.example.miscellaneous.ControlFlow.Companion.playWithLoops
-import org.example.miscellaneous.Numbers.Companion.playWithNumbers
 import org.example.miscellaneous.Customer
-import org.example.miscellaneous.Numbers.Companion.playWithArrays
-import org.example.miscellaneous.Numbers.Companion.playWithStrings
-import org.example.miscellaneous.Numbers.Companion.playWithTypeCasts
+import org.secondary.playWithClasses
 import org.example.product.ProductImpl
 
 fun main() {
@@ -39,7 +33,9 @@ fun main() {
     //playWithConditions()
     // playWithLoops()
     // Ninth lesson
-    playWithExceptions()
+    // playWithExceptions()
+    // Tenth lesson
+    playWithClasses()
 }
 
 fun firstLesson() {
