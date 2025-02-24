@@ -6,8 +6,8 @@ package org.example
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
 import org.example.miscellaneous.Customer
-import org.secondary.playWithClasses
 import org.example.product.ProductImpl
+import org.secondary.*
 
 fun main() {
 //    // First lesson
@@ -35,7 +35,23 @@ fun main() {
     // Ninth lesson
     // playWithExceptions()
     // Tenth lesson
-    playWithClasses()
+    //playWithClasses()
+
+    // Eleventh lesson
+    // playWithClassInheritance()
+
+    // Lesson twelve
+    // playWithProperties()
+
+    // Lesson thirteen
+    playWithFunctionalInterfaces()
+
+    // visibility test
+    playWithVisibility()
+}
+
+fun playWithVisibility() {
+    createEv()
 }
 
 fun firstLesson() {
