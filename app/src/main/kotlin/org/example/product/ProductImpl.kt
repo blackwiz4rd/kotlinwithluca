@@ -1,6 +1,7 @@
 package org.example.product
 
 import jdk.jfr.Name
+import org.example.error.AppIError
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.TestOnly
  * @property name
  */
 
-data class ProductImpl(val name: String, val productId: Int = 0) : Product {
+data class ProductImpl(val name: String, val productId: Int = 0) : ProductExtras {
     enum class Unit {
         KG, LBS
     }
@@ -22,6 +23,10 @@ data class ProductImpl(val name: String, val productId: Int = 0) : Product {
     private var description: String? = null
 
     private val _ingredients: MutableList<String> = mutableListOf()
+    override fun test() {
+        println("This is a test")
+    }
+
     override val ingredients: List<String>
         get() = _ingredients
 

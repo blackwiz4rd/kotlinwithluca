@@ -3,11 +3,16 @@
  */
 package org.example
 
+import org.example.api.ApiRequest
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
+import org.example.error.AppIError
+import org.example.error.IOIError
 import org.example.miscellaneous.Customer
 import org.example.product.*
 import org.secondary.*
+import org.example.state.UIState
+import org.example.api.User
 
 fun main() {
 //    // First lesson
@@ -49,7 +54,52 @@ fun main() {
     // visibility test
     //playWithVisibility()
 
-    playWithExtensionFunctions()
+    // playWithExtensionFunctions()
+
+    playWithSealedClasses()
+}
+
+fun playWithSealedClasses() {
+    val productExtras = ProductImpl("Amatriciana", 1)
+    productExtras.test()
+
+    var state: UIState = UIState.Loading
+    // CustomState() // CustomState is abstract and cannot be instanciated
+    updateUiState(state)
+    state = UIState.GoBack
+    updateUiState(state)
+
+    listOf(AppIError.DatabaseIError(true), AppIError.DatabaseIError(false), AppIError.NetworkIError(), AppIError.UnknownIError()).forEach {
+        println("Message: ${it.message} ${it.severity}")
+        println("Should I retry on this error? ${checkErrorRetry(it)}")
+    }
+
+    // call the request
+    val user = User(1, "validUser", "validPass")
+    println(user.handleRequest(ApiRequest.LoginRequest))
+    println(user.isLogged)
+    println(user.handleRequest(ApiRequest.LogoutRequest))
+    println(user.isLogged)
+    println(User(1, "test", "test").handleRequest(ApiRequest.LoginRequest))
+    println(user.isLogged)
+}
+
+fun updateUiState(state: UIState) {
+    when (state) {
+        UIState.GoBack -> println("Going back in screen")
+        UIState.Loading -> println("Loading screen")
+        is UIState.Success -> println("Success")
+        UIState.UiLoaded -> println("UI Loaded")
+        is UIState.UiError -> println("Error ongoing")
+    }
+}
+
+fun checkErrorRetry(e: AppIError): Boolean {
+    return when (e) {
+        is AppIError.DatabaseIError -> if (e.databaseCorrupted) false else true
+        is AppIError.NetworkIError -> true
+        is AppIError.UnknownIError -> false
+    }
 }
 
 fun playWithExtensionFunctions() {

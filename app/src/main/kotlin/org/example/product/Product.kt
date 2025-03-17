@@ -1,6 +1,12 @@
 package org.example.product
 
-interface Product {
+import org.example.error.AppIError
+
+interface ProductExtras: Product {
+    fun test()
+}
+
+sealed interface Product {
 
     companion object {}
 
