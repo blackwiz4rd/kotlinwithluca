@@ -6,7 +6,7 @@ package org.example
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
 import org.example.miscellaneous.Customer
-import org.example.product.ProductImpl
+import org.example.product.*
 import org.secondary.*
 
 fun main() {
@@ -44,10 +44,42 @@ fun main() {
     // playWithProperties()
 
     // Lesson thirteen
-    playWithFunctionalInterfaces()
+    //playWithFunctionalInterfaces()
 
     // visibility test
-    playWithVisibility()
+    //playWithVisibility()
+
+    playWithExtensionFunctions()
+}
+
+fun playWithExtensionFunctions() {
+    var productImpl: ProductImpl? = ProductImpl("Amatriciana", 1)
+    productImpl?.addIngredient("Pasta")
+    productImpl?.addIngredient("Sauce")
+    productImpl?.addIngredient("Bacon")
+
+    println("Before swap: ${productImpl?.ingredients}")
+    productImpl.printSwapIngredients(0,2)
+    println("After swap: ${productImpl?.ingredients}")
+    println(productImpl)
+    println(productImpl == productImpl?.copy())
+    println(productImpl == productImpl?.copy(productId = 5))
+    print(productImpl?.copy(productId = 4))
+
+    productImpl = null
+    productImpl.printSwapIngredients(0,2)
+
+    val testProductImpl = Product.createProductTest()
+
+    val (name, productId) = testProductImpl
+
+    println(testProductImpl.component1())
+    println(testProductImpl.component2())
+
+    println("desctructing declaration: ${name}, ${productId}")
+
+    Pair<Int,String>(1,"ciao")
+    Triple<Int,String,Int>(1,"ciao",4)
 }
 
 fun playWithVisibility() {

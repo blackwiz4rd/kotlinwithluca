@@ -8,6 +8,7 @@ import org.jetbrains.annotations.TestOnly
  *
  * @property name
  */
+
 data class ProductImpl(val name: String, val productId: Int = 0) : Product {
     enum class Unit {
         KG, LBS
@@ -21,7 +22,7 @@ data class ProductImpl(val name: String, val productId: Int = 0) : Product {
     private var description: String? = null
 
     private val _ingredients: MutableList<String> = mutableListOf()
-    val ingredients: List<String>
+    override val ingredients: List<String>
         get() = _ingredients
 
     private val personComparator: Comparator<String> =
@@ -67,12 +68,18 @@ data class ProductImpl(val name: String, val productId: Int = 0) : Product {
     override fun toString(): String {
         return "TAG=$TAG, Product" +
                 "(name=${name}," +
-                "description=${description}" +
-                ")"
+               "description=${description}," +
+               "productId=${productId}" +
+               ")\n"
     }
 
     fun addIngredient(s: String) {
         _ingredients.add(s)
+    }
+
+    override fun replaceAllIngredients(ingredients: List<String>) {
+        _ingredients.removeAll { true }
+        _ingredients.addAll(0, ingredients)
     }
 
     @TestOnly
