@@ -3,6 +3,8 @@
  */
 package org.example
 
+import TestComparable
+import TestComparableImpl
 import org.example.api.ApiRequest
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
@@ -13,6 +15,14 @@ import org.example.product.*
 import org.secondary.*
 import org.example.state.UIState
 import org.example.api.User
+import org.example.box.Box
+import org.example.generics.basicToString
+import org.example.generics.copy
+import org.example.generics.singletonList
+import org.example.source.Source
+import org.example.source.SourceImpl
+import org.jetbrains.annotations.TestOnly
+import java.util.Collections.sort
 
 fun main() {
 //    // First lesson
@@ -56,7 +66,48 @@ fun main() {
 
     // playWithExtensionFunctions()
 
-    playWithSealedClasses()
+    // playWithSealedClasses()
+
+    // lesson on Generics
+    playWithGenerics()
+}
+
+fun demoGenerics(strs: Source<String>) {
+    val objects: Source<Any> = strs // subtyping is preserved (so this is allowed because we are using out in Source<String>)
+    val strsCopy: Source<String> = objects as Source<String>
+    println(strsCopy)
+}
+
+fun playWithGenerics() {
+    val box: Box<Int> = Box(1)
+    val box2 = Box(2L)
+    val sources = SourceImpl<String>()
+    sources.initElements(listOf("a","b","c"))
+    demoGenerics(sources)
+
+    demo(TestComparableImpl<Int>(2) as TestComparable<Number>)
+
+    val source: Array<String> = arrayOf("Hello", "World")
+    val destination: Array<Any> = arrayOf(1,2,3)
+
+    copy(source, destination)
+    println(destination.joinToString())
+
+    println("List of generics")
+    println(singletonList(1).basicToString())
+    println(singletonList("ciao").basicToString())
+    println("testString".basicToString())
+
+    val a = listOf(3,2,1)
+    println(a.sorted())
+    //println(HashMap<Int, String>().sorted())
+}
+
+fun demo(x: TestComparable<Number>) {
+    println("comparison: ${x.compareTo(1)}")
+    // Thus, you can assign x to a variable of type Comparable<Double>
+    val y: TestComparable<Double> = x // OK!
+    println(y)
 }
 
 fun playWithSealedClasses() {
