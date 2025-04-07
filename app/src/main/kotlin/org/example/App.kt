@@ -3,8 +3,11 @@
  */
 package org.example
 
+import Password
+import PasswordAlias
 import TestComparable
 import TestComparableImpl
+import callSdkExample
 import org.example.api.ApiRequest
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
@@ -16,12 +19,22 @@ import org.secondary.*
 import org.example.state.UIState
 import org.example.api.User
 import org.example.box.Box
+import org.example.custom.CustomEvent
+import org.example.custom.CustomEventListener
+import org.example.custom.CustomViewModel
+import org.example.enums.Direction
 import org.example.generics.basicToString
 import org.example.generics.copy
 import org.example.generics.singletonList
+import org.example.notification.Notification
+import org.example.notification.NotificationManager
 import org.example.source.Source
 import org.example.source.SourceImpl
+import org.example.username.IPerson
+import org.example.username.Person
+import org.example.username.testUserCreation
 import org.jetbrains.annotations.TestOnly
+import java.lang.IllegalArgumentException
 import java.util.Collections.sort
 
 fun main() {
@@ -69,7 +82,114 @@ fun main() {
     // playWithSealedClasses()
 
     // lesson on Generics
-    playWithGenerics()
+    //playWithGenerics()
+
+    // Nested, Inner, Enum, Inline values classes
+    moreOnClasses()
+
+    // inline values
+    // inlineValuesTesting()
+
+    // object declarations and expressions
+    objectDeclarations()
+}
+
+fun objectDeclarations() {
+    println(org.example.username.SocialNumber == org.example.username.SocialNumber)
+    println(testUserCreation())
+    val notification = NotificationManager()
+
+    notification.getEmailNotification()
+    notification.getNotification()
+
+
+    (notification.getDetailedNotification() as Notification).notifyUser()
+    (notification.getDetailedNotification() as Notification).notifyUser()
+}
+
+fun inlineValuesTesting() {
+    val securePassword = Password("ciao")
+
+    val person1 = Person("Luca")
+    val person2 = Person("Luca", "Me")
+
+    println(person1)
+    println(person2)
+    try {
+        val person3 = Person("Luca", "")
+        println(person3)
+
+    } catch (e: IllegalArgumentException) {
+
+    }
+
+    letMePrintLength(person1)
+
+    val pAlias: PasswordAlias = "PasswordAlias"
+    val p = Password("PasswordInlineValue")
+
+    passPasswordAlias(pAlias)
+    passPasswordString(pAlias)
+    // passPasswordString(p) not allowed
+    passPasswordInlineValue(p)
+
+    callSdkExample()
+}
+
+fun passPasswordInlineValue(s: Password) {
+    println(s)
+}
+
+fun passPasswordAlias(s: PasswordAlias) {
+    println(s)
+}
+
+fun passPasswordString(s: String) {
+    println(s)
+}
+
+fun letMePrintLength(person: IPerson) {
+    person.printLength()
+}
+
+fun moreOnClasses() {
+    val viewModel = CustomViewModel()
+    println("viewModel.state=${viewModel.state}")
+    viewModel.loadUi()
+    println("viewModel.state=${viewModel.state}")
+    println("Check password ${viewModel.checkPassword()}")
+
+    // useful to capture results in our main function
+    viewModel.addEventListener(object : CustomEventListener {
+        override fun onEvent(customEvent: CustomEvent) {
+            when (customEvent.eventType) {
+                "test1" -> {
+                    sideEffectCalulated += 1
+                    println("we are capturing result for test1")
+                }
+                "test2" -> {
+                    sideEffectCalulated += 2
+                    println("we are capturing result for test2")
+                }
+            }
+        }
+
+        override var sideEffectCalulated: Int = 0
+    })
+
+    viewModel.test1()
+    viewModel.test2()
+    viewModel.test1()
+    println("outputOfSideEffect=${viewModel.outputOfSideEffect()}")
+
+    viewModel.testCustomEventPass(CustomEvent("test1"))
+    viewModel.testCustomEventPass(CustomEvent("test1"))
+    println("outputOfSideEffect=${viewModel.outputOfSideEffect()}")
+    viewModel.moveShip(Direction.EAST)
+    viewModel.moveShip(Direction.NORTH)
+
+    println("plus 3,7 ${viewModel.plusOperation(3,7)}")
+    println("times 4,5 ${viewModel.timesOperation(4,5)}")
 }
 
 fun demoGenerics(strs: Source<String>) {
