@@ -3,6 +3,9 @@
  */
 package org.example
 
+import BaseImpl
+import Derived
+import ExampleDelegate
 import Password
 import PasswordAlias
 import TestComparable
@@ -22,6 +25,9 @@ import org.example.box.Box
 import org.example.custom.CustomEvent
 import org.example.custom.CustomEventListener
 import org.example.custom.CustomViewModel
+import org.example.delegation.Resource
+import org.example.delegation.TestDeletegateStandard
+import org.example.delegation.UserDelegate
 import org.example.enums.Direction
 import org.example.generics.basicToString
 import org.example.generics.copy
@@ -33,9 +39,7 @@ import org.example.source.SourceImpl
 import org.example.username.IPerson
 import org.example.username.Person
 import org.example.username.testUserCreation
-import org.jetbrains.annotations.TestOnly
 import java.lang.IllegalArgumentException
-import java.util.Collections.sort
 
 fun main() {
 //    // First lesson
@@ -85,13 +89,81 @@ fun main() {
     //playWithGenerics()
 
     // Nested, Inner, Enum, Inline values classes
-    moreOnClasses()
+    // moreOnClasses()
 
     // inline values
     // inlineValuesTesting()
 
     // object declarations and expressions
-    objectDeclarations()
+    // objectDeclarations()
+
+    testDelegation()
+}
+
+fun testDelegation() {
+    val b = BaseImpl(10)
+    val derived = Derived(b)
+    derived.print()
+    derived.printMessageLine()
+    println(derived.message)
+
+    val ed = ExampleDelegate()
+    println(ed.p)
+    ed.p = "HELLP"
+    println(ed.p)
+
+    val lazyValue: String by lazy {
+        println("computed!")
+        "Hello"
+    }
+
+    println(lazyValue)
+    println(lazyValue)
+
+    val user = UserDelegate(mutableMapOf(
+        "address" to "Via Of Test",
+        "addressCode" to 22,
+        "city" to "Rome"
+    ))
+    user.name = "hello"
+    user.name = "pizza"
+
+    user.age = 10
+    println(user.age)
+    user.age = -1
+    println(user.age)
+    user.age = 8
+    println(user.age)
+    println(user.oldName)
+
+    println(user.address)
+    println(user.addressCode)
+    println(user.city)
+    user.city = "Firenze"
+    println(user.city)
+    println(user.mutableMap)
+
+    val userNew = { UserDelegate(mutableMapOf()) }
+
+    println("=== Case 1: someCondition = false ===")
+    UserDelegate.example(userNew, someCondition = false)  // User is NEVER created
+
+    println("\n=== Case 2: someCondition = true ===")
+    UserDelegate.example(userNew, someCondition = true)   // User is created and validated
+
+    println("\n=== Case 3: someCondition = true ===")
+    UserDelegate.example({
+        val u = UserDelegate(mutableMapOf())
+        u.name = ""
+        u
+    }, someCondition = true)   // User is created and validated
+
+    println(TestDeletegateStandard.readOnlyResource.message)
+    TestDeletegateStandard.readWriteResource = Resource("custom")
+    println(TestDeletegateStandard.readOnlyResource.message)
+    TestDeletegateStandard.readWriteResource = Resource("custom")
+    println(TestDeletegateStandard.readWriteResource.message)
+    println(TestDeletegateStandard.readOnlyResource.message)
 }
 
 fun objectDeclarations() {
