@@ -15,7 +15,6 @@ import org.example.api.ApiRequest
 import org.example.computer.GeneralComputer
 import org.example.computer.Laptop
 import org.example.error.AppIError
-import org.example.error.IOIError
 import org.example.miscellaneous.Customer
 import org.example.product.*
 import org.secondary.*
@@ -29,6 +28,8 @@ import org.example.delegation.Resource
 import org.example.delegation.TestDeletegateStandard
 import org.example.delegation.UserDelegate
 import org.example.enums.Direction
+import org.example.func.B
+import org.example.func.multiply
 import org.example.generics.basicToString
 import org.example.generics.copy
 import org.example.generics.singletonList
@@ -97,7 +98,43 @@ fun main() {
     // object declarations and expressions
     // objectDeclarations()
 
-    testDelegation()
+    //testDelegation()
+
+    testFunctions()
+}
+
+fun testFunctions() {
+
+    val b = B(6)
+
+    val i = 2
+    println("double of ${i}: ${b.double(i)}")
+    println("double of ${i}: ${b.doubleInSingleExpression(i)}")
+    println("double of ${i}: ${b.doubleInSingleExpressionOptionalReturn(i)}")
+    println("multiply 2, 3: ${b.multiply()}")
+
+    b.foo()
+
+    b.anotherFoo(coffe = 2)
+    b.anotherFooSample(3) {
+        println("Run after print")
+    }
+
+    b.anotherFooSample(coffe = 3, runAfterPrint = {
+        println("Run after print")
+    })
+
+    val moreData = arrayOf("d","e")
+    val unboxedData = charArrayOf('1', '2', '3')
+
+    b.dontMessUpWithNames(s = "hello ", upperCase = true, addSuffix = false, suffix = "nosuffix", separator = "_",  "a", "b", "c", *moreData, *unboxedData.map { it.toString() }.toTypedArray())
+
+    println(3 multiply 5)
+    println(b.multiply(3))
+    b.printMultiplyWithInfix(3)
+
+    println(singletonList("string example"))
+    println(singletonList(4))
 }
 
 fun testDelegation() {
